@@ -29,6 +29,9 @@
             <li class="nav-item">
                 <a href="/pig_shop/admin/blogs" class="!text-white !no-underline">Quản lí bài viết</a>
             </li>
+            <li class="nav-item">
+                <a href="/chichi/admin/product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
+            </li>
         </ul>
     </div>
 </body>
