@@ -21,7 +21,7 @@
                 <a href="/pig_shop/admin" class="!text-white !no-underline">Trang chủ</a>
             </li>
             <li class="nav-item">
-                <a href="/pig_shop/admin/user" class="!text-white !no-underline">Quản lí người dùng</a>
+                <a href="/pig_shop/admin/user/list_user.php" class="!text-white !no-underline">Quản lí người dùng</a>
             </li>
             <li class="nav-item">
                 <a href="/pig_shop/admin/product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
