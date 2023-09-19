@@ -15,21 +15,26 @@
             $banners = [
                 [
                     'title' => 'Image',
-                    'avatar' => 'https://gaubongonline.vn/wp-content/uploads/2023/09/thang-9_Banner-DC_HN.jpg'
+                    'avatar' => 'https://gaubongonline.vn/wp-content/uploads/2023/09/thang-9_Banner-DC_HN.jpg',
+                    'link' => '/'
                 ],
                 [
                     'title' => 'Image',
+                    'link' => '/',
                     'avatar' => 'https://gaubongonline.vn/wp-content/uploads/2023/09/thang-9_Banner-BST-Metoo-copy-1.jpg'
                 ],
                 [
                     'title' => 'Image',
-                    'avatar' => 'https://gaubongonline.vn/wp-content/uploads/2023/09/Banner-thuong_banner-dien-gau-1-scaled.jpg'
+                    'avatar' => 'https://gaubongonline.vn/wp-content/uploads/2023/09/Banner-thuong_banner-dien-gau-1-scaled.jpg',
+                    'link' => '/',
                 ],
             ];
             foreach ($banners as $banner) {
                 ?>
-                <img class="banner object-cover" src="<?php echo $banner['avatar'] ?>"
-                    alt="<?php echo $banner['title'] ?>" />
+                <a href="<?php echo $banner['link'] ?>" _blank>
+                    <img class="banner object-cover" src="<?php echo $banner['avatar'] ?>"
+                        alt="<?php echo $banner['title'] ?>" />
+                </a>
             <?php } ?>
         </div>
     </div>
