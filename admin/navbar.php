@@ -24,7 +24,10 @@
                 <a href="/pig_shop/admin/user" class="!text-white !no-underline">Quản lí người dùng</a>
             </li>
             <li class="nav-item">
-                <a href="/chichi/admin/product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
+                <a href="/pig_shop/admin/product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
+            </li>
+            <li class="nav-item">
+                <a href="/pig_shop/admin/blogs" class="!text-white !no-underline">Quản lí bài viết</a>
             </li>
         </ul>
     </div>

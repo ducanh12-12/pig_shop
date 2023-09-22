@@ -26,11 +26,11 @@
 			$link = $file__name__;
 		
 			$conn=mysqli_connect("localhost","root","") or die ("Không connect đc với máy chủ");//tạo kết nối với servers
-			mysqli_select_db($conn,"web") or die ("Không tìm thấy CSDL");
+			mysqli_select_db($conn,"pig_shop") or die ("Không tìm thấy CSDL");
 			
 			$sql="INSERT INTO `pigs` (`image`, `title`, `description`) VALUES ('$link', '$title', '$description')";
 			mysqli_query($conn,$sql);
-			header('location:http://localhost/chichi/admin/product/dssp.php');
+			header('location:http://localhost/pig_shop/admin/product/dssp.php');
 		}
 	?>
 <form name="them_sp"  method="post" action="themsp.php" enctype="multipart/form-data" >
@@ -59,7 +59,7 @@
 		  <input type="reset"></td>
     </tr>
 	<tr>
-	  <td colspan="4" align="center"><a href="\chichi\admin\product\dssp.php" >Xem danh sách sản phẩm</a></td>	
+	  <td colspan="4" align="center"><a href="\pig_shop\admin\product\dssp.php" >Xem danh sách sản phẩm</a></td>	
 	</tr>
 	</table>
 		</form>

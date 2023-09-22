@@ -8,32 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
     <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 </head>
 <script>
 </script>
-<style>
-    * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-    }
-
-    html {
-        font-family: "Be Vietnam Pro", sans-serif !important;
-    }
-
-    a {
-        text-decoration: none !important;
-        text: black !important;
-    }
-    .text-prim {
-        color: #ff6683;
-    }
-    .bg-prim {
-        background-color: #ff6683
-    }
-</style>
 <?php include('slug.php') ?>
 
 <body>

@@ -35,7 +35,7 @@
             ],
             [
                 "title" => "BÀI VIẾT",
-                "link" => "/admin",
+                "link" => "/pig_shop/blogs/list.php",
             ],
             [
                 "title" => "HÀNG MỚI VỀ",
