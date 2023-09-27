@@ -66,7 +66,7 @@
 			<a href="\pig_shop\admin\blogs">Xem danh sách bài viết</a>
 		</form>
 	</div>
-</body>
+</body> 
 <script>
 	ClassicEditor.create(document.getElementById("content"), {
 		// https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
@@ -190,7 +190,7 @@
 			// This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
 			// https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
 			// Storing images as Base64 is usually a very bad idea.
-			// Replace it on production website with other solutions:
+			// Replace it on production pig_shopsite with other solutions:
 			// https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
 			// 'Base64UploadAdapter',
 			'RealTimeCollaborativeComments',

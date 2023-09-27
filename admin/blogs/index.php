@@ -11,10 +11,15 @@
 <?php include("../navbar.php") ?>
 <div class="flex-grow-1 p-6">
     <div class="button flex justify-end"><button class="btn btn-primary"><a style="color: white !important;" href="/pig_shop/admin/blogs/themblog.php">Thêm bài viết</a></button></div>
+    <form class="form-inline flex justify-end" method="post" action="index.php" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" name="title" placeholder="Nhập từ khóa tìm kiếm" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+    </form>
     <?php
+        $search = isset($_REQUEST['title']) ? $_REQUEST['title'] : '';
         $conn=mysqli_connect("localhost","root","") or die ("Không connect đc với máy chủ");
         mysqli_select_db($conn,"pig_shop") or die ("Không tìm thấy CSDL");
-        $sql="Select * from `blogs`";
+        $sql="Select * from `blogs`where title like '$search%'";
         $result=mysqli_query($conn,$sql);
         $tong_bg=mysqli_num_rows($result);
         $stt=0;
