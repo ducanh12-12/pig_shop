@@ -58,11 +58,11 @@
             ],
             [
                 "title" => "QUẢN TRỊ",
-                "link" => "/pig_shop/admin",
+                "link" => "/pig_shop/admin/user/login_admin.php",
             ],
             [
                 "title" => "ĐĂNG NHẬP",
-                "link" => "/pig_shop/admin",
+                "link" => "/pig_shop/admin/user/login.php",
             ],
         ] ?>
         <ul class="nav nav-tabs container py-2 justify-between">

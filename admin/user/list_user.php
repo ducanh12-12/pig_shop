@@ -1,6 +1,3 @@
-<?php
-//	$dmyhis=date("Y").date("m").date("d").date("H").date("i").date("s");
-?>
 <!doctype html>
 <html>
 <head>
@@ -29,13 +26,26 @@
 			$stt++;
 			$id[$stt]=$row->id;
 			$full_name[$stt]=$row->full_name;
-			$phone_number[$stt]=$row->full_name;
+			$phone_number[$stt]=$row->phone_number;
 			$email[$stt]=$row->email;
-			$date_of_birth[$stt]=$row->date_of_birth;
+			$date_of_birdth[$stt]=strtotime($row->date_of_birdth);
 			$gender[$stt]=$row->gender;
+			$pass[$stt]=$row->pass;
 			$status[$stt]=$row->status;
 			$avatar[$stt]=$row->avatar;
 		}
+	?>
+	<?php
+		$conn = mysqli_connect("localhost", "root","","pig_shop");
+		if(isset($_GET["search"]) && !empty($_GET["search"]))
+		{
+			$key=$_GET["search"];
+			$sql = "SELECT * FROM `users` WHERE full_name LIKE '%$key%' OR phone_number LIKE '%$key%' OR email LIKE '%$key%' OR gender LIKE '%$key%' OR status LIKE '%$key%'";
+		}
+		else{
+			$sql = "SELECT * FROM `users`";
+		}
+		$result = mysqli_query($conn,$sql);
 	?>
     <div class="flex" >
         <?php include("../navbar.php") ?>
@@ -53,15 +63,17 @@
 			<br>
 			<div class="card">
     			<div class="card-body">
-					<form>
+					<form action="del_list_connect.php" method="post" >
 						<button type="submit" class="btn btn-success" name="add" formaction="add_user.php" formnovalidate>Thêm mới</button>
-						<button type="button" class="btn btn-danger" name="delete">Xóa</button>
+						<button type="submit" class="btn btn-danger" name="delete_cb">Xóa</button>
 						<hr>
 						<div class="d-flex justify-content-end">
-							<div class="input-group input-group-sm mb-3 w-25" justify-content-end>
-								<input type="text" class="form-control" placeholder="Tìm kiếm">
-								<button class="btn btn-success" type="submit">Tìm kiếm</button> 	
-							</div>
+							<form class="search-form" action="" method="get">
+								<div class="input-group input-group-sm mb-3 w-25" justify-content-end>
+									<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" value="<?php if(isset($_GET["search"])) {echo $_GET["search"];} ?>">
+									<input type="submit" class="btn btn-success" value="Tìm kiếm">
+									<input type="button" class="btn btn-secondary" value="Tất cả" onClick="window.location.href = '/pig_shop/admin/user/list_user.php'"> 		
+								</div>
 						</div>
 							<table width="547" border="1" align="center" class="table table-bordered" enctype="multipart/form-data">
 								<thead class="table-danger">
@@ -74,9 +86,9 @@
 										<th class="text-center">Giới tính</th>
 										<th class="text-center">SĐT</th>
 										<th class="text-center">Gmail</th>
+										<th class="text-center">Mật khẩu</th>
 										<th class="text-center">Trạng thái</th>
 										<th class="text-center">Chức năng</th>
-			<!--							<th><?php echo $dmyhis  ?>    </th>-->
 									</tr>
 								</thead>
 								<tbody>
@@ -86,18 +98,63 @@
 								    ?>
 									<tr>
 										<th>
-											<input type='checkbox' name='selected[]' value='{$row[0]}'/>
+											<input type='checkbox' name='cb_id[]' class="form-check-input" value="<?php echo $id[$i]?>" />
 										</th> <!-- Thêm cột trống để chứa checkbox -->
 										<th class="text-center"><?php echo $i?></th>
 										<th class="text-center"><?php echo $full_name[$i]?></th>
-										<th class="text-center"><img style="width: 55px;height: 70px" src="<?php echo $avatar[$i]?>"></th>
-										<th class="text-center"><?php echo $date_of_birth[$i]?></th>
-										<th class="text-center"><?php echo $gender[$i]?></th>
+										<th align="center">
+											<?php
+											$defaultAvatar = 'images/null.jpg'; // Đặt đường dẫn mặc định ở đây
+											if (empty($avatar[$i])) {
+												echo '<div class="d-flex justify-content-center"><img style="width: 55px; height: 70px" src="' . $defaultAvatar . '"></div>';
+											} else {
+												echo '<div class="d-flex justify-content-center"><img style="width: 55px; height: 70px" src="' . $avatar[$i] . '"></div>';
+											}
+											?>
+										</th>
+										
+										<th class="text-center">
+											<?php 
+											if (empty($date_of_birdth[$i])) {
+												echo "~Trống~";
+											} else {
+												echo date('d-m-Y',$date_of_birdth[$i]);
+											}
+											?>
+										</th>
+										<th class="text-center">
+											<?php 
+											if (empty($gender[$i])) {
+												echo "~Trống~";
+											} elseif ($gender[$i] == "Nam") {
+												echo "Nam";
+											} elseif ($gender[$i] == "Nữ") {
+												echo "Nữ";
+											} else {
+												echo "Không xác định";
+											}
+											?>
+										</th>
 										<th class="text-center"><?php echo $phone_number[$i]?></th>
 										<th class="text-center"><?php echo $email[$i]?></th>
-										<th class="text-center"><?php echo $status[$i]?></th>
+										<th align="center" class="text-center" style="width: 120px;">
+    										<input class="form-control-sm" type="password" value="<?php echo $pass[$i]?>" readonly style="width: 100%; background-color: transparent; text-align: center;" disabled>
+										</th>
 										<th class="text-center">
-											<button  type='submit' class='btn btn-warning' name='edit' value='<?php $row[0] ?>'>Sửa</button>
+											<?php
+											if ($status[$i] == 1) {
+												echo '<span class="text-success">active</span>';
+											} elseif ($status[$i] == 0) {
+												echo '<span class="text-danger">unactive</span>';
+											} else {
+												echo '<span class="text-muted">Không xác định</span>';
+											}
+											?>
+										</th>
+										<th class="text-center">
+											<a href="edit_user.php?id=<?php echo $id[$i]?>">
+												<button  type='button' class='btn btn-warning' formnovalidate>Sửa</button>
+											</a>
 											<a href="del_user.php?id=<?php echo $id[$i]?>">
 												<button  type='button' class='btn btn-danger' name='delete' value='<?php $row[0] ?>'>Xóa</button>
 											</a>
@@ -108,6 +165,7 @@
 								    ?>
 							</tbody>
 							</table>
+							</form>
 						</form>
 				</div>
   			</div>
