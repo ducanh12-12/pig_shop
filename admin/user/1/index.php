@@ -9,11 +9,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="flex">
+<body align="center">
+    <div class="flex" >
         <?php include("../navbar.php") ?>
         <div>
             Quản lí người dùng
+			
+				
         </div>
     </div>
 </body>
