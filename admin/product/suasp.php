@@ -7,15 +7,16 @@
 
 <body>				
 	<?php
-  $id=$_REQUEST["txtid"];
-  $image=$_REQUEST["txtimage"];
-  $title=$_REQUEST["txttitle"];
-  $description=$_REQUEST["txtdescription"];
+  $id=$_REQUEST["idhang"];
+  $title=$_REQUEST["title"];
+  $description=$_REQUEST["description"];
+  $category_id = $_POST["category_id"];
+
 	$conn=mysqli_connect("localhost","root","") or die ("Không connect đc với máy chủ");
 //Chọn CSDL để làm việc
 mysqli_select_db($conn,"pig_shop") or die ("Không tìm thấy CSDL");
 //Tạo câu truy vấn
-$sql_update_pigs="UPDATE pigs SET id='$id',title='$title' ,avatar='$image',description='$description' WHERE pigs . id=$id";
+$sql_update_pigs="UPDATE pigs SET id='$id',title='$title' ,avatar='$avatar',description='$description',category_id='$category_id' WHERE pigs . id=$id";
 mysqli_query($conn,$sql_update_pigs);
 header("Location: dssp.php ")
 ?>

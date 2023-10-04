@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>SỬA SẢN PHẨM</title>
+  <title>SỬA BLOGS</title>
 </head>
 
 <body>
