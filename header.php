@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
 =======
 
 <head>
@@ -11,7 +11,7 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 >>>>>>> dungcho
-<style>
+<style> -->
     .container {
         max-width: 1200px;
     }
@@ -46,11 +46,8 @@
             ],
             [
                 "title" => "BÀI VIẾT",
-<<<<<<< HEAD
                 "link" => "/pig_shop/blogs/list.php",
-=======
                 "link" => "/admin",
->>>>>>> dungcho
             ],
             [
                 "title" => "HÀNG MỚI VỀ",

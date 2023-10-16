@@ -20,12 +20,6 @@
         <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01"> Danh mục</label>
   </div>
-  
-    <option selected>Bộ sưu tập gấu bông</option>
-    <option value="1">Bộ sưu tập đón trăng 1</option>
-    <option value="2">Bộ sưu tập đón trăng 2</option>
-    <option value="3">Bộ sưu tập đón trăng 3</option>
-  </select>
 </div>
         <?php
         $search = isset($_REQUEST['title']) ? $_REQUEST['title'] : '';
@@ -40,7 +34,7 @@
             $stt++;
             $id[$stt] = $row->id;
             $title[$stt] = $row->title;
-            $image[$stt] = $row->avatar;
+            $avatar[$stt] = $row->avatar;
             $description[$stt] = $row->description;
             $category_id[$stt]=$row->category_id;
         }
@@ -62,7 +56,7 @@
                     <tr>
                         <td><?php echo $id[$i]; ?></td>
                         <td><?php echo $title[$i] ?></td>
-                        <td><img width="80" height="80" src="../../images/<?php echo $image[$i] ?>"></td>
+                        <td><img width="80" height="80" src="../../images/<?php echo $avatar[$i] ?>"></td>
                         <td><?php echo $description[$i] ?></td>
                         <td><?php echo $category_id[$i] ?></td>
                         <td><a href="/pig_shop/admin/product/xoasp.php?idhang=<?php echo $id[$i] ?>"> Xoá</td>

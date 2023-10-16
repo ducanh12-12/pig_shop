@@ -2,28 +2,40 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon-block/ckeditor.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon-block/ckeditor.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
-    <?php
-    $id = $_REQUEST['idhang'];
-    $conn = mysqli_connect("localhost", "root", "") or die("Khong connect duoc voi may chu");
-    mysqli_select_db($conn, "pig_shop") or die("Khong tim thay co so du lieu");
-    $sql = "SELECT * from pigs where id = $id";
-    $qr = mysqli_query($conn, $sql);
-    $rows = mysqli_fetch_array($qr);
-    $content = str_replace( '&', '&', $rows['content']);
-    ?>
- <body class ="flex">   
- <div class="flex-grow-1 flex">
-		<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400" method="post"
-			action="suasp.php?idhang=<?php echo $id ?>" enctype="multipart/form-data">
+<?php
+$conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ"); //tạo kết nối với servers
+mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL");
+$sql = "Select * from `categories`";
+$result = mysqli_query($conn, $sql);
+$tong_bg = mysqli_num_rows($result);
+$stt = 0;
+while ($row = mysqli_fetch_object($result)) {
+
+	$stt++;
+	$idCate[$stt] = $row->id;
+	$titleCate[$stt] = $row->title;
+}
+$id = $_REQUEST['idhang'];
+$conn = mysqli_connect("localhost", "root", "") or die("Khong connect duoc voi may chu");
+mysqli_select_db($conn, "pig_shop") or die("Khong tim thay co so du lieu");
+$sql = "SELECT * from pigs where id = $id";
+$qr = mysqli_query($conn, $sql);
+$rows = mysqli_fetch_array($qr);
+$content = str_replace('&', '&', $rows['content']);
+?>
+
+<body class="flex">
+	<div class="flex-grow-1 flex">
+		<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400" method="post" action="suasp.php?idhang=<?php echo $id ?>" enctype="multipart/form-data">
 			<div class="mb-3">
 				<label for="title" class="form-label">Tên sản phẩm</label>
 				<input class="form-'
@@ -31,10 +43,10 @@
 				<!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
 			</div>
 			<div class="mb-3">
-				<label for="image" class="form-label">Ảnh sản phẩm</label>
-				<input type="file" class="form-control" name="image">
+				<label for="avatar" class="form-label">Ảnh sản phẩm</label>
+				<input type="file" class="form-control" name="avatar">
 			</div>
-            <div class="mb-3">
+			<div class="mb-3">
 				<label for="description" class="form-label">Mô tả sản phảm</label>
 				<input class="form-control" name="description" id="description" aria-describedby="">
 			</div>
@@ -43,12 +55,16 @@
 				<textarea id="content" onchange="getData()" name="content"><?php echo $content ?></textarea>
 			</div>
 			<div class="mb-3">
-				<label for="category_id" class="form-label">ID sản phẩm</label>
-				<input class="form-control" name="category_id" value="<?php echo $rows['category_id'] ?>" id="category_id" aria-describedby="">
-				<!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+				<label for="category_id" class="form-label">ID danh muc</label>
+				<select name="category_id" id="cars" class="form-control">
+					<?php
+					for ($i = 1; $i <= $tong_bg; $i++) {
+					?>
+						<option <?php echo $rows['category_id'] === $idCate[$i] ? 'selected' : '' ?> value="<?php echo $idCate[$i] ?>"><?php echo $titleCate[$i] ?></option><?php } ?>
+				</select>
 			</div>
 			<button type="submit" class="btn btn-primary">Sửa sản phẩm</button>
-			<a href="\pig_shop\admin\blogs">Xem danh sản phẩm</a>
+			<a href="\pig_shop\admin\product">Xem danh sản phẩm</a>
 		</form>
 	</div>
 </body>
@@ -85,14 +101,47 @@
 		},
 		// https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
 		heading: {
-			options: [
-				{ model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-				{ model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-				{ model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-				{ model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-				{ model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
-				{ model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
-				{ model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+			options: [{
+					model: 'paragraph',
+					title: 'Paragraph',
+					class: 'ck-heading_paragraph'
+				},
+				{
+					model: 'heading1',
+					view: 'h1',
+					title: 'Heading 1',
+					class: 'ck-heading_heading1'
+				},
+				{
+					model: 'heading2',
+					view: 'h2',
+					title: 'Heading 2',
+					class: 'ck-heading_heading2'
+				},
+				{
+					model: 'heading3',
+					view: 'h3',
+					title: 'Heading 3',
+					class: 'ck-heading_heading3'
+				},
+				{
+					model: 'heading4',
+					view: 'h4',
+					title: 'Heading 4',
+					class: 'ck-heading_heading4'
+				},
+				{
+					model: 'heading5',
+					view: 'h5',
+					title: 'Heading 5',
+					class: 'ck-heading_heading5'
+				},
+				{
+					model: 'heading6',
+					view: 'h6',
+					title: 'Heading 6',
+					class: 'ck-heading_heading6'
+				}
 			]
 		},
 		// https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
@@ -120,14 +169,12 @@
 		// Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
 		// https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
 		htmlSupport: {
-			allow: [
-				{
-					name: /.*/,
-					attributes: true,
-					classes: true,
-					styles: true
-				}
-			]
+			allow: [{
+				name: /.*/,
+				attributes: true,
+				classes: true,
+				styles: true
+			}]
 		},
 		// Be careful with enabling previews
 		// https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
@@ -150,18 +197,16 @@
 		},
 		// https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
 		mention: {
-			feeds: [
-				{
-					marker: '@',
-					feed: [
-						'@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
-						'@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
-						'@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
-						'@sugar', '@sweet', '@topping', '@wafer'
-					],
-					minimumCharacters: 1
-				}
-			]
+			feeds: [{
+				marker: '@',
+				feed: [
+					'@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+					'@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+					'@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+					'@sugar', '@sweet', '@topping', '@wafer'
+				],
+				minimumCharacters: 1
+			}]
 		},
 		// The "super-build" contains more premium features that require additional configuration, disable them below.
 		// Do not turn them on unless you read the documentation and know how to configure them and setup the editor.

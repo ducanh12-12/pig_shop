@@ -10,11 +10,11 @@
 <body style="display: flex;">
 <?php include("../navbar.php") ?>
 <div class="flex-grow-1 p-6">
-    <div class="button flex justify-end"><button class="btn btn-primary"><a style="color: white !important;" href="/pig_shop/admin/blogs/themblog.php">Thêm bài viết</a></button></div>
+    <div class="button flex justify-end"><button class="btn btn-primary"><a style="color: white !important;" href="/pig_shop/admin/categories/themcategories.php">Thêm danh mục</a></button></div>
     <?php
         $conn=mysqli_connect("localhost","root","") or die ("Không connect đc với máy chủ");
         mysqli_select_db($conn,"pig_shop") or die ("Không tìm thấy CSDL");
-        $sql="Select * from `category`";
+        $sql="Select * from `categories`";
         $result=mysqli_query($conn,$sql);
         $tong_bg=mysqli_num_rows($result);
         $stt=0;
@@ -45,9 +45,10 @@
                     <tr>
                         <td><?php echo $id[$i]; ?></td>
                         <td><?php echo $title[$i] ?></td>
-                        <td><?php echo $description[$i] ?></td>
-                        <td><a href="/pig_shop/admin/blogs/xoablog.php?idhang=<?php echo $id[$i] ?>"> Xoá</td>
-                        <td><a href="/pig_shop/admin/blogs/suasp1.php?idhang=<?php echo $id[$i] ?>">Sửa</td>
+                        <td><?php echo $slug[$i] ?></td>
+                        <td><a href="/pig_shop/admin/categories/xoacategories.php?idhang=<?php echo $id[$i] ?>"> Xoá</td>
+                        <td><a href="/pig_shop/admin/categories/suacategories1.php?idhang=<?php echo $id[$i] ?>">Sửa</td>
+                        
     
                     </tr>
                 <?php

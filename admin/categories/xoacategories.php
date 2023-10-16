@@ -11,9 +11,9 @@
     $conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ");
     //Chọn CSDL để làm việc
     mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL");
-    $sql="DELETE FROM blogs  WHERE id  = $id";
+    $sql="DELETE FROM categories  WHERE id  = $id";
     mysqli_query($conn,$sql);
-    header('Location: http://localhost/pig_shop/admin/blogs');
+    header('Location: http://localhost/pig_shop/admin/categories');
     ?>
 </body>
 </html>
