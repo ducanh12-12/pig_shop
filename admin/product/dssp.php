@@ -37,6 +37,9 @@
             $avatar[$stt] = $row->avatar;
             $description[$stt] = $row->description;
             $category_id[$stt]=$row->category_id;
+            $size[$stt]=$row->size;
+            $price[$stt]=$row->price;
+
         }
         ?>
        <table class="table table-border table-hover" width="600" border="1">
@@ -47,6 +50,8 @@
                     <th scope="col">Ảnh</th>
                     <th scope="col">Mô tả sản phẩm</th>
                     <th scope="col">ID danh mục</th>
+                    <th scope="col">Size sản phẩm</th>
+                    <th scope="col">Giá sản phẩm</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +64,9 @@
                         <td><img width="80" height="80" src="../../images/<?php echo $avatar[$i] ?>"></td>
                         <td><?php echo $description[$i] ?></td>
                         <td><?php echo $category_id[$i] ?></td>
+                        <td><?php echo $size[$i] ?></td>
+                        <td><?php echo $price[$i] ?></td>
+
                         <td><a href="/pig_shop/admin/product/xoasp.php?idhang=<?php echo $id[$i] ?>"> Xoá</td>
                         <td><a href="/pig_shop/admin/product/suasp1.php?idhang=<?php echo $id[$i] ?>">Sửa</td>
                     </tr>

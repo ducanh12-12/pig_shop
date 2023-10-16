@@ -35,24 +35,43 @@ $content = str_replace('&', '&', $rows['content']);
 
 <body class="flex">
 	<div class="flex-grow-1 flex">
-		<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400" method="post" action="suasp.php?idhang=<?php echo $id ?>" enctype="multipart/form-data">
+		<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400  needs-validation" novalidate method="post" action="suasp.php?idhang=<?php echo $id ?>" enctype="multipart/form-data">
 			<div class="mb-3">
 				<label for="title" class="form-label">Tên sản phẩm</label>
-				<input class="form-'
-				control" name="title" value="<?php echo $rows['title'] ?>" id="title" aria-describedby="">
-				<!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+				<input class="form-control" name="title" value="<?php echo $rows['title'] ?>" id="title" aria-describedby="" required>
+				<div class="invalid-feedback">
+				Vui lòng nhập thông tin.
 			</div>
+  			</div>
 			<div class="mb-3">
 				<label for="avatar" class="form-label">Ảnh sản phẩm</label>
-				<input type="file" class="form-control" name="avatar">
+				<input type="file" class="form-control" name="avatar" required>
+				<div class="invalid-feedback">
+				Vui lòng nhập thông tin.
+			</div>
 			</div>
 			<div class="mb-3">
 				<label for="description" class="form-label">Mô tả sản phảm</label>
 				<input class="form-control" name="description" id="description" aria-describedby="">
+				
 			</div>
 			<div class="mb-3">
 				<label for="content" class="form-label">Nội dung</label>
 				<textarea id="content" onchange="getData()" name="content"><?php echo $content ?></textarea>
+			</div>
+			<div class="mb-3">
+				<label for="size" class="form-label">Size sản phẩm</label>
+				<input class="form-control" name="size" id="size" aria-describedby="" required>
+				<div class="invalid-feedback">
+				Vui lòng nhập thông tin.
+			</div>
+			</div>
+			<div class="mb-3">
+				<label for="price" class="form-label">Giá sản phảm</label>
+				<input class="form-control" name="price" id="price" aria-describedby="" required>
+				<div class="invalid-feedback">
+				Vui lòng nhập thông tin.
+			</div>
 			</div>
 			<div class="mb-3">
 				<label for="category_id" class="form-label">ID danh muc</label>
@@ -69,6 +88,26 @@ $content = str_replace('&', '&', $rows['content']);
 	</div>
 </body>
 <script>
+	(function() {
+		'use strict'
+
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
+
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+			.forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
+
+					form.classList.add('was-validated')
+				}, false)
+			})
+	})()
+
 	ClassicEditor.create(document.getElementById("content"), {
 		// https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
 		toolbar: {

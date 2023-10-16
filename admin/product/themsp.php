@@ -12,21 +12,22 @@
 	<?php
 	$conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ"); //tạo kết nối với servers
 	mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL");
-	 $sql="Select * from `categories`";
-	 $result=mysqli_query($conn,$sql);
-	 $tong_bg=mysqli_num_rows($result);
-	 $stt=0;
- while($row=mysqli_fetch_object($result))
- {
- 
-	 $stt++;
-	 $idCate[$stt]=$row->id;
-	 $titleCate[$stt]=$row->title;
- }
+	$sql = "Select * from `categories`";
+	$result = mysqli_query($conn, $sql);
+	$tong_bg = mysqli_num_rows($result);
+	$stt = 0;
+	while ($row = mysqli_fetch_object($result)) {
+
+		$stt++;
+		$idCate[$stt] = $row->id;
+		$titleCate[$stt] = $row->title;
+	}
 	$title = "";
 	if (isset($_POST["form_add_product"])) {
 		$title = $_POST["title"];
 		$description = $_POST["description"];
+		$size = $_POST["size"];
+		$price = $_POST["price"];
 		$category_id = $_POST["category_id"];
 	}
 	if ($title != "" && $description != "") {
@@ -46,7 +47,7 @@
 		$conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ"); //tạo kết nối với servers
 		mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL");
 
-		$sql = "INSERT INTO `pigs` (`avatar`, `title`, `description`,`category_id`) VALUES ('$link', '$title', '$description','$category_id')";
+		$sql = "INSERT INTO `pigs` (`avatar`, `title`, `description`,`category_id`,`size`,`price`) VALUES ('$link', '$title', '$description','$category_id','$size','$price')";
 		mysqli_query($conn, $sql);
 		header('location:http://localhost/pig_shop/admin/product/dssp.php');
 	}
@@ -55,48 +56,87 @@
 
 <body class="flex">
 	<?php include("../navbar.php") ?>
-	<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400" method="post" action="themsp.php" enctype="multipart/form-data">
+	<form name="them_sp" novalidate class="w-[1200px] mx-auto my-auto p-6 border border-gray-400 needs-validation" method="post" action="themsp.php" enctype="multipart/form-data">
 		<input type="hidden" name="form_add_sp" value="1">
 		<div class="mb-3">
 			<label for="title" class="form-label">Tên sản phẩm</label>
-			<input class="form-control" name="title" id="title" aria-describedby="">
+			<input class="form-control" name="title" id="title" aria-describedby="" required>
+			<div class="invalid-feedback">
+				Vui lòng nhập thông tin.
+			</div>
 		</div>
 		<div class="mb-3">
 			<label for="avatar" class="form-label">Ảnh sản phẩm</label>
 			<input type="file" class="form-control" name="avatar">
-		</div>
-		<div class="mb-3">
-			<label for="description" class="form-label">Mô sản phẩm</label>
-			<input class="form-control" name="description" id="description" aria-describedby="">
-		</div>
-		<div class="mb-3">
-			<label for="content" class="form-label">Nội dung</label>
-			<textarea id="content" onchange="getData()" name="content"></textarea>
-		</div>
-		<div class="mb-3">
-			<label for="category_id" class="form-label">ID danh mục</label>
-			<select name="category_id" id="cars" class="form-control">
-			<?php
-                for ($i = 1; $i <= $tong_bg; $i++) {
-                ?>
-				<option value="<?php echo $idCate[$i]?>"><?php echo $titleCate[$i]?></option><?php } ?>
-			</select>
-		</div>
-		<button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
-		<a href="dssp.php">Xem danh sách sản phẩm</a>
+			<div class="invalid-feedback">
+				Vui lòng nhập thông tin.
+			</div>
+			<div class="mb-3">
+				<label for="description" class="form-label">Mô tả sản phẩm</label>
+				<input class="form-control" name="description" id="description" aria-describedby="" required required>
+				<div class="invalid-feedback">
+					Vui lòng nhập thông tin.
+
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="content" class="form-label">Nội dung</label>
+				<textarea id="content" onchange="getData()" name="content"></textarea>
+				<div class="invalid-feedback">
+					Vui lòng nhập thông tin.
+
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="size" class="form-label">Size sản phẩm</label>
+				<input class="form-control" name="size" id="size" aria-describedby="" required>
+				<div class="invalid-feedback">
+					Vui lòng nhập thông tin.
+
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="price" class="form-label">Giá sản phẩm</label>
+				<input class="form-control" name="price" id="price" aria-describedby="" required>
+				<div class="invalid-feedback">
+					Vui lòng nhập thông tin.
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="category_id" class="form-label">ID danh mục</label>
+				<select name="category_id" id="cars" class="form-control">
+					<?php
+					for ($i = 1; $i <= $tong_bg; $i++) {
+					?>
+						<option value="<?php echo $idCate[$i] ?>"><?php echo $titleCate[$i] ?></option><?php } ?>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+			<a href="dssp.php">Xem danh sách sản phẩm</a>
 	</form>
 	</div>
-
-	<!-- <select class="custom-select" id="inputGroupSelect01">
-	
-
-		<option selected>Choose...</option>
-			<option value="</option>
-			<option value="2">Two</option>
-			<option value="3">Three</option>
-		</select> -->
 </body>
 <script>
+	(function() {
+		'use strict'
+
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
+
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+			.forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
+
+					form.classList.add('was-validated')
+				}, false)
+			})
+	})()
+
 	ClassicEditor.create(document.getElementById("content"), {
 		// https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
 		toolbar: {
