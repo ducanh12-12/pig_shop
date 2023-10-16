@@ -24,6 +24,12 @@
         <?php include("components/home/list/Item.php") ?>
         <?php include("components/home/list/Item.php") ?>
         <?php include("components/home/list/Item.php") ?>
+		<?php include("admin/video/view_video.php")?>
+		</br>
+		<div class="container mt-3" align="center" >
+			<button type="submit" name="login" class="btn btn-primary btn-lg btn-block">Xem thêm</button>
+		</div> 
+		</br>
     </div>
     <?php include("footer.php") ?>
 </body>

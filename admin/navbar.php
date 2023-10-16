@@ -34,6 +34,8 @@
             </li>
             <li class="nav-item">
                 <a href="/pig_shop/admin/categories" class="!text-white !no-underline">Quản lí danh mục</a>
+			<li class="nav-item">
+                <a href="video/list_video.php" class="!text-white !no-underline">Quản lí video</a>
             </li>
         </ul>
     </div>

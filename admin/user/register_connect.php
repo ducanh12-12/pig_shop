@@ -1,17 +1,4 @@
 	<?php
-//	$full_name=$_REQUEST["txt_name"];
-//	$email=$_REQUEST["txt_email"];
-//	$phone_number=$_REQUEST["txt_phone"];
-//	$pass=$_REQUEST["txt_pass1"];
-//
-//	$conn=mysqli_connect("localhost","root","") or die ("Không connect đc với máy chủ");//tạo kết nối với server
-//	
-//	mysqli_select_db($conn,"pig_shop") or die ("Không tìm thấy CSDL");// Tìm CSDL đề làm việc
-//	$sql="INSERT INTO users (full_name, phone_number, email, pass) VALUES ('$full_name','$phone_number','$email','$pass')";
-//	
-//	mysqli_query($conn,$sql);
-//	header("Location: register.php");
-	
 	$conn = mysqli_connect("localhost", "root", "") or die("Không thể kết nối với máy chủ"); // Kết nối tới máy chủ MySQL
 mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL"); // Chọn CSDL để làm việc
 if (isset($_POST['register'])){
