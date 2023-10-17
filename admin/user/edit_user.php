@@ -12,7 +12,7 @@
         #selected-image {
             max-width: 100%;
             height: auto;
-            display: none; /* Ẩn ảnh ban đầu */
+            display: block; /* Ẩn ảnh ban đầu */
         }
     </style>
     <script>
@@ -154,7 +154,7 @@
                                 <tr>
                                     <td colspan="2" width="260">
                                         <div class="mb-3 mt-3 has-validation">
-                                            <input type="file" name="avatar" id="avatar" onchange="displayImage()" required><br>
+                                            <input type="file" name="avatar" id="avatar" onchange="displayImage()"><br>
                                             <div class="invalid-feedback">Chọn ảnh.</div>
                                         </div>
                                     </td>

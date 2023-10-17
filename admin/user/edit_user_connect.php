@@ -7,21 +7,21 @@ $email = $_POST["txt_email"];
 $gender = $_POST["txt_gender"];
 $pass = $_POST["txt_pass"];
 $status = $_POST["txt_status"];
-$avatar = $_POST["txt_avatar"];
-
+$link = '';
 // Xử lý ảnh tải lên
 $uploadDir_img_logo = "./images/";
-
-$file_tmp = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : "";
-$file_name = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : "";
-$file_type = isset($_FILES['avatar']['type']) ? $_FILES['avatar']['type'] : "";
-$file_size = isset($_FILES['avatar']['size']) ? $_FILES['avatar']['size'] : "";
-$file_error = isset($_FILES['avatar']['error']) ? $_FILES['avatar']['error'] : "";
-
-$dmyhis = date("Y") . date("m") . date("d") . date("H") . date("i") . date("s");
-$file__name__ = $dmyhis . $file_name;
-copy($file_tmp, $uploadDir_img_logo . $file__name__);
-$link = $uploadDir_img_logo . $file__name__;
+if ($_FILES['avatar']['name']) {
+    $file_tmp = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : "";
+    $file_name = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : "";
+    $file_type = isset($_FILES['avatar']['type']) ? $_FILES['avatar']['type'] : "";
+    $file_size = isset($_FILES['avatar']['size']) ? $_FILES['avatar']['size'] : "";
+    $file_error = isset($_FILES['avatar']['error']) ? $_FILES['avatar']['error'] : "";
+    
+    $dmyhis = date("Y") . date("m") . date("d") . date("H") . date("i") . date("s");
+    $file__name__ = $dmyhis . $file_name;
+    copy($file_tmp, $uploadDir_img_logo . $file__name__);
+    $link = $uploadDir_img_logo . $file__name__;
+}
 
 $conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ");
 // Chọn CSDL để làm việc
@@ -58,7 +58,12 @@ if (strlen($pass) < 6 || strlen($pass) > 16) {
 }
 
 // Nếu không có lỗi về Email và Phone, thực hiện câu truy vấn UPDATE
-$sql = "UPDATE `users` SET full_name ='$full_name', phone_number='$phone_number', email='$email', date_of_birdth='$date_of_birdth', gender='$gender', pass='$pass', status ='$status', avatar='$link' WHERE `users`.`id` = $id";
+if ($link) {
+    $sql = "UPDATE `users` SET full_name ='$full_name', phone_number='$phone_number', email='$email', date_of_birdth='$date_of_birdth', gender='$gender', pass='$pass', status ='$status', avatar='$link' WHERE `users`.`id` = $id";
+} else {
+    $sql = "UPDATE `users` SET full_name ='$full_name', phone_number='$phone_number', email='$email', date_of_birdth='$date_of_birdth', gender='$gender', pass='$pass', status ='$status' WHERE `users`.`id` = $id";
+    
+}
 mysqli_query($conn, $sql);
 header("Location: list_user.php");
 ?>
