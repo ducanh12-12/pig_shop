@@ -46,7 +46,17 @@
 			</br>
 			<div class="card">
     			<div class="card-body mb-3 mt-3 ">
-					<h2 align="center"> Nhập thông tin mới </h2> <br>
+					<h2 align="center"> Nhập thông tin </h2> <br>
+					<?php if (isset($_GET['error'])) 
+					{
+					?>
+						<div class="alert alert-danger error" role="alert" align="center">
+							<?php echo $_GET['error']; ?>
+						</div>				
+					<?php 
+					}
+					?>
+					<br>
 				  <form name="frm_add_user" action="add_user_connect.php" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate >
 					<table border="1" cellspacing="0" cellpadding="0" align="center" class="table table-bordered w-50" >
 						<thead class="table-danger">

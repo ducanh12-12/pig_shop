@@ -1,3 +1,10 @@
+<?php
+session_start(); 
+
+if (isset($_SESSION['currentUserRole'])) {
+    $currentUserRole = $_SESSION['currentUserRole'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,28 +24,50 @@
             </a>
         </div>
         <ul class="navbar-menu flex flex-col p-0 text-lg">
-            <li class="nav-item">
-                <a href="/pig_shop/admin" class="!text-white !no-underline">Trang chủ</a>
-            </li>
-            <li class="nav-item">
-                <a href="/pig_shop/admin/user/list_user.php" class="!text-white !no-underline">Quản lí người dùng</a>
-            </li>
-            <li class="nav-item">
-                <a href="/pig_shop/admin/product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
-            </li>
-            <li class="nav-item">
-                <a href="/pig_shop/admin/blogs" class="!text-white !no-underline">Quản lí bài viết</a>
-            </li>
-            <li class="nav-item">
-                <a href="product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
-            </li>
-            <li class="nav-item">
-                <a href="/pig_shop/admin/categories" class="!text-white !no-underline">Quản lí danh mục</a>
-			<li class="nav-item">
-                <a href="video/list_video.php" class="!text-white !no-underline">Quản lí video</a>
-            </li>
-        </ul>
-    </div>
+        <!-- Kiểm tra và hiển thị mục quản lý người dùng dựa trên vai trò -->
+        <?php 
+        if ($currentUserRole === 'is super admin') { 
+        ?>
+				<li class="nav-item">
+					<a href="/pig_shop/admin" class="!text-white !no-underline">Trang chủ</a>
+				</li>
+				<li class="nav-item">
+					<a href="/pig_shop/admin/user/list_user.php" class="!text-white !no-underline">Quản lý người dùng</a>
+				</li>
+				<li class="nav-item">
+					<a href="/pig_shop/admin/blogs" class="!text-white !no-underline">Quản lí bài viết</a>
+				</li>
+				<li class="nav-item">
+					<a href="product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
+				</li>
+				<li class="nav-item">
+					<a href="video/list_video.php" class="!text-white !no-underline">Quản lí video</a>
+				</li>
+			<?php 
+			} 
+			elseif ($currentUserRole === 'is admin') 
+			{
+			?>
+				<li class="nav-item">
+					<a href="/pig_shop/admin" class="!text-white !no-underline">Trang chủ</a>
+				</li>
+				<li class="nav-item">
+					<a href="/pig_shop/admin/user/list_qtv.php" class="!text-white !no-underline">Danh sách người dùng</a>
+				</li>
+				<li class="nav-item">
+					<a href="/pig_shop/admin/product/dssp.php" class="!text-white !no-underline">Quản lí lợn hồng</a>
+				</li>
+				<li class="nav-item">
+					<a href="/pig_shop/admin/blogs" class="!text-white !no-underline">Quản lí bài viết</a>
+				</li>
+				<li class="nav-item">
+					<a href="video/list_video.php" class="!text-white !no-underline">Quản lí video</a>
+				</li>
+			<?php
+			} 
+			?>
+		</ul>
+	</div>
 </body>
 
 </html>

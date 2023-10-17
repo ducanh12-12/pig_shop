@@ -56,15 +56,13 @@
             <div class="card">
                 <div class="card-body">
                     <form method="post">
-                        <button type="submit" class="btn btn-success" name="add" formaction="add_user.php" formnovalidate>Thêm mới</button>
-                        <hr>
 <!--
                         <div class="d-flex justify-content-end">
                             <form class="search-form" action="" method="get">
                                 <div class="input-group input-group-sm mb-3 w-25">
                                     <input type="text" name="search" class="form-control" placeholder="Tìm kiếm" value="<?php echo $search; ?>">
                                     <input type="submit" class="btn btn-success" value="Tìm kiếm">
-                                    <input type="button" class="btn btn-secondary" value="Tất cả" onClick="window.location.href = '/pig_shop/admin/user/list_user.php'">
+                                    <input type="button" class="btn btn-secondary" value="Tất cả" onClick="window.location.href = '/pig_shop/admin/user/list_qtv.php'">
                                 </div>
                             </form>
                         </div>
@@ -81,7 +79,6 @@
                                     <th class="text-center">Gmail</th>
                                     <th class="text-center">Mật khẩu</th>
                                     <th class="text-center">Trạng thái</th>
-                                    <th class="text-center">Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,23 +142,6 @@
                                             }
                                             ?>
                                         </th>
-                                        <th class="text-center">
-                                            <a href="edit_user.php?id=<?php echo $row['id']; ?>">
-                                                <button type='button' class='btn btn-warning' formnovalidate>Sửa</button>
-                                            </a>
-                                            <?php
-                                            // Kiểm tra giá trị của roles
-                                            $roles = $row['roles'];
-                                            if ($roles !== 'is super admin') {
-                                                // Nếu không phải 'is super admin', hiển thị nút Xóa
-                                            ?>
-                                                <a href="del_user.php?id=<?php echo $row['id']; ?>">
-                                                    <button type='button' class='btn btn-danger' name='delete' value='<?php echo $row['id']; ?>'>Xóa</button>
-                                                </a>
-                                            <?php
-                                            }
-                                            ?>
-                                        </th>
                                     </tr>
                                 <?php
                                 }
@@ -175,17 +155,17 @@
             <div class="pagination">
                 <?php
                 if ($page > 1) {
-                    echo "<li class='page-item'><a class='page-link' href='list_user.php?page=1&search=$search'>Trước</a></li>";
+                    echo "<li class='page-item'><a class='page-link' href='list_qtv.php?page=1&search=$search'>Trước</a></li>";
                 }
                 for ($i = max($page - 5, 1); $i <= min($page + 5, $totalPages); $i++) {
                     if ($i == $page) {
                         echo "<li class='page-item active'><span class='page-link'>$i</span></li>";
                     } else {
-                        echo "<li class='page-item'><a class='page-link' href='list_user.php?page=$i&search=$search'>$i</a></li>";
+                        echo "<li class='page-item'><a class='page-link' href='list_qtv.php?page=$i&search=$search'>$i</a></li>";
                     }
                 }
                 if ($page < $totalPages) {
-                    echo "<li class='page-item'><a class='page-link' href='list_user.php?page=$totalPages&search=$search'>Sau</a></li>";
+                    echo "<li class='page-item'><a class='page-link' href='list_qtv.php?page=$totalPages&search=$search'>Sau</a></li>";
                 }
                 ?>
             </div>
