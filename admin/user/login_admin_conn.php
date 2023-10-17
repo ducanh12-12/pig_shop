@@ -21,7 +21,7 @@ if (isset($_POST['login_admin'])) {
             $_SESSION['currentUserRole'] = $currentUserRole;
 
             // Tài khoản hợp lệ và có trạng thái = 1
-            header("Location: ../index.php");
+            header("Location: ../admin");
             exit();
         } else {
             // Tài khoản bị khóa, thông báo lỗi

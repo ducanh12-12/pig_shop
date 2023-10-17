@@ -8,7 +8,8 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon-block/ckeditor.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
 <?php
@@ -34,26 +35,26 @@ $content = str_replace('&', '&', $rows['content']);
 ?>
 
 <body class="flex">
+	<?php include("../navbar.php") ?>
 	<div class="flex-grow-1 flex">
-		<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400  needs-validation" novalidate method="post" action="suasp.php?idhang=<?php echo $id ?>" enctype="multipart/form-data">
+		<form name="them_sp" class="w-[1200px] mx-auto my-auto p-6 border border-gray-400  needs-validation" novalidate
+			method="post" action="suasp.php?idhang=<?php echo $id ?>" enctype="multipart/form-data">
 			<div class="mb-3">
 				<label for="title" class="form-label">Tên sản phẩm</label>
-				<input class="form-control" name="title" value="<?php echo $rows['title'] ?>" id="title" aria-describedby="" required>
+				<input class="form-control" name="title" value="<?php echo $rows['title'] ?>" id="title"
+					aria-describedby="" required>
 				<div class="invalid-feedback">
-				Vui lòng nhập thông tin.
+					Vui lòng nhập thông tin.
+				</div>
 			</div>
-  			</div>
 			<div class="mb-3">
-				<label for="avatar" class="form-label">Ảnh sản phẩm</label>
-				<input type="file" class="form-control" name="avatar" required>
-				<div class="invalid-feedback">
-				Vui lòng nhập thông tin.
-			</div>
+				<label for="image" class="form-label">Ảnh sản phẩm</label>
+				<input type="file" class="form-control" name="image">
 			</div>
 			<div class="mb-3">
 				<label for="description" class="form-label">Mô tả sản phảm</label>
 				<input class="form-control" name="description" id="description" aria-describedby="">
-				
+
 			</div>
 			<div class="mb-3">
 				<label for="content" class="form-label">Nội dung</label>
@@ -61,25 +62,29 @@ $content = str_replace('&', '&', $rows['content']);
 			</div>
 			<div class="mb-3">
 				<label for="size" class="form-label">Size sản phẩm</label>
-				<input class="form-control" name="size" id="size" aria-describedby="" required>
+				<input class="form-control" value="<?php echo $rows['size'] ?>" name="size" id="size" aria-describedby="" required>
 				<div class="invalid-feedback">
-				Vui lòng nhập thông tin.
-			</div>
+					Vui lòng nhập thông tin.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="price" class="form-label">Giá sản phảm</label>
-				<input class="form-control" name="price" id="price" aria-describedby="" required>
+				<input class="form-control" value="<?php echo $rows['price'] ?>" name="price" id="price" aria-describedby="" required>
 				<div class="invalid-feedback">
-				Vui lòng nhập thông tin.
-			</div>
+					Vui lòng nhập thông tin.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="category_id" class="form-label">ID danh muc</label>
 				<select name="category_id" id="cars" class="form-control">
 					<?php
 					for ($i = 1; $i <= $tong_bg; $i++) {
-					?>
-						<option <?php echo $rows['category_id'] === $idCate[$i] ? 'selected' : '' ?> value="<?php echo $idCate[$i] ?>"><?php echo $titleCate[$i] ?></option><?php } ?>
+						?>
+						<option <?php echo $rows['category_id'] === $idCate[$i] ? 'selected' : '' ?>
+							value="<?php echo $idCate[$i] ?>">
+							<?php echo $titleCate[$i] ?>
+						</option>
+					<?php } ?>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-primary">Sửa sản phẩm</button>
@@ -88,7 +93,7 @@ $content = str_replace('&', '&', $rows['content']);
 	</div>
 </body>
 <script>
-	(function() {
+	(function () {
 		'use strict'
 
 		// Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -96,8 +101,8 @@ $content = str_replace('&', '&', $rows['content']);
 
 		// Loop over them and prevent submission
 		Array.prototype.slice.call(forms)
-			.forEach(function(form) {
-				form.addEventListener('submit', function(event) {
+			.forEach(function (form) {
+				form.addEventListener('submit', function (event) {
 					if (!form.checkValidity()) {
 						event.preventDefault()
 						event.stopPropagation()
@@ -141,46 +146,46 @@ $content = str_replace('&', '&', $rows['content']);
 		// https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
 		heading: {
 			options: [{
-					model: 'paragraph',
-					title: 'Paragraph',
-					class: 'ck-heading_paragraph'
-				},
-				{
-					model: 'heading1',
-					view: 'h1',
-					title: 'Heading 1',
-					class: 'ck-heading_heading1'
-				},
-				{
-					model: 'heading2',
-					view: 'h2',
-					title: 'Heading 2',
-					class: 'ck-heading_heading2'
-				},
-				{
-					model: 'heading3',
-					view: 'h3',
-					title: 'Heading 3',
-					class: 'ck-heading_heading3'
-				},
-				{
-					model: 'heading4',
-					view: 'h4',
-					title: 'Heading 4',
-					class: 'ck-heading_heading4'
-				},
-				{
-					model: 'heading5',
-					view: 'h5',
-					title: 'Heading 5',
-					class: 'ck-heading_heading5'
-				},
-				{
-					model: 'heading6',
-					view: 'h6',
-					title: 'Heading 6',
-					class: 'ck-heading_heading6'
-				}
+				model: 'paragraph',
+				title: 'Paragraph',
+				class: 'ck-heading_paragraph'
+			},
+			{
+				model: 'heading1',
+				view: 'h1',
+				title: 'Heading 1',
+				class: 'ck-heading_heading1'
+			},
+			{
+				model: 'heading2',
+				view: 'h2',
+				title: 'Heading 2',
+				class: 'ck-heading_heading2'
+			},
+			{
+				model: 'heading3',
+				view: 'h3',
+				title: 'Heading 3',
+				class: 'ck-heading_heading3'
+			},
+			{
+				model: 'heading4',
+				view: 'h4',
+				title: 'Heading 4',
+				class: 'ck-heading_heading4'
+			},
+			{
+				model: 'heading5',
+				view: 'h5',
+				title: 'Heading 5',
+				class: 'ck-heading_heading5'
+			},
+			{
+				model: 'heading6',
+				view: 'h6',
+				title: 'Heading 6',
+				class: 'ck-heading_heading6'
+			}
 			]
 		},
 		// https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration

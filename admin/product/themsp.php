@@ -6,7 +6,8 @@
 	<title>Untitled Document</title>
 	<link rel="stylesheet" href="../css/dssp.css">
 	<script src="https://cdn.tailwindcss.com"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/balloon/ckeditor.js"></script>
 	<?php
@@ -29,35 +30,39 @@
 		$size = $_POST["size"];
 		$price = $_POST["price"];
 		$category_id = $_POST["category_id"];
-	}
-	if ($title != "" && $description != "") {
-		$uploadDir_img = "../../images/";
+		$link = "";
+		if ($title != "") {
+			if ($_FILES['avatar']['name']) {
+				$uploadDir_img = "../../images/";
+	
+				$file_tmp = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : "";
+				$file_name = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : "";
+				$file_type = isset($_FILES['avatar']['type']) ? $_FILES['avatar']['type'] : "";
+				$file_size = isset($_FILES['avatar']['size']) ? $_FILES['avatar']['size'] : "";
+				$file_error = isset($_FILES['avatar']['error']) ? $_FILES['avatar']['error'] : "";
+			  
+				$dmyhis = date("Y") . date("m") . date("d") . date("H") . date("i") . date("s"); ///Lay gio cua he thong
+				$file__name__ = $dmyhis . $file_name;
+				copy($file_tmp, $uploadDir_img . $file__name__);
+				$link = $file__name__;
+			}
 
-		$file_tmp = isset($_FILES['image']['tmp_name']) ? $_FILES['image']['tmp_name'] : "";
-		$file_name = isset($_FILES['image']['name']) ? $_FILES['image']['name'] : "";
-		$file_type = isset($_FILES['image']['type']) ? $_FILES['image']['type'] : "";
-		$file_size = isset($_FILES['image']['size']) ? $_FILES['image']['size'] : "";
-		$file_error = isset($_FILES['image']['error']) ? $_FILES['image']['error'] : "";
+			$conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ"); //tạo kết nối với servers
+			mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL");
 
-		$dmyhis = date("Y") . date("m") . date("d") . date("H") . date("i") . date("s"); ///Lay gio cua he thong
-		$file__name__ = $dmyhis . $file_name;
-		copy($file_tmp, $uploadDir_img . $file__name__);
-		$link = $file__name__;
-
-		$conn = mysqli_connect("localhost", "root", "") or die("Không connect đc với máy chủ"); //tạo kết nối với servers
-		mysqli_select_db($conn, "pig_shop") or die("Không tìm thấy CSDL");
-
-		$sql = "INSERT INTO `pigs` (`avatar`, `title`, `description`,`category_id`,`size`,`price`) VALUES ('$link', '$title', '$description','$category_id','$size','$price')";
-		mysqli_query($conn, $sql);
-		header('location:http://localhost/pig_shop/admin/product/dssp.php');
+			$sql = "INSERT INTO `pigs` (`avatar`, `title`, `description`,`category_id`,`size`,`price`) VALUES ('$link', '$title', '$description','$category_id','$size','$price')";
+			mysqli_query($conn, $sql);
+			header('location:http://localhost/pig_shop/admin/product/dssp.php');
+		}
 	}
 	?>
 </head>
 
 <body class="flex">
 	<?php include("../navbar.php") ?>
-	<form name="them_sp" novalidate class="w-[1200px] mx-auto my-auto p-6 border border-gray-400 needs-validation" method="post" action="themsp.php" enctype="multipart/form-data">
-		<input type="hidden" name="form_add_sp" value="1">
+	<form name="them_sp" novalidate class="w-[1200px] mx-auto my-auto p-6 border border-gray-400 needs-validation"
+		method="post" action="themsp.php" enctype="multipart/form-data">
+		<input type="hidden" name="form_add_product" value="1">
 		<div class="mb-3">
 			<label for="title" class="form-label">Tên sản phẩm</label>
 			<input class="form-control" name="title" id="title" aria-describedby="" required>
@@ -107,8 +112,11 @@
 				<select name="category_id" id="cars" class="form-control">
 					<?php
 					for ($i = 1; $i <= $tong_bg; $i++) {
-					?>
-						<option value="<?php echo $idCate[$i] ?>"><?php echo $titleCate[$i] ?></option><?php } ?>
+						?>
+						<option value="<?php echo $idCate[$i] ?>">
+							<?php echo $titleCate[$i] ?>
+						</option>
+					<?php } ?>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
@@ -117,7 +125,7 @@
 	</div>
 </body>
 <script>
-	(function() {
+	(function () {
 		'use strict'
 
 		// Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -125,8 +133,8 @@
 
 		// Loop over them and prevent submission
 		Array.prototype.slice.call(forms)
-			.forEach(function(form) {
-				form.addEventListener('submit', function(event) {
+			.forEach(function (form) {
+				form.addEventListener('submit', function (event) {
 					if (!form.checkValidity()) {
 						event.preventDefault()
 						event.stopPropagation()
@@ -170,46 +178,46 @@
 		// https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
 		heading: {
 			options: [{
-					model: 'paragraph',
-					title: 'Paragraph',
-					class: 'ck-heading_paragraph'
-				},
-				{
-					model: 'heading1',
-					view: 'h1',
-					title: 'Heading 1',
-					class: 'ck-heading_heading1'
-				},
-				{
-					model: 'heading2',
-					view: 'h2',
-					title: 'Heading 2',
-					class: 'ck-heading_heading2'
-				},
-				{
-					model: 'heading3',
-					view: 'h3',
-					title: 'Heading 3',
-					class: 'ck-heading_heading3'
-				},
-				{
-					model: 'heading4',
-					view: 'h4',
-					title: 'Heading 4',
-					class: 'ck-heading_heading4'
-				},
-				{
-					model: 'heading5',
-					view: 'h5',
-					title: 'Heading 5',
-					class: 'ck-heading_heading5'
-				},
-				{
-					model: 'heading6',
-					view: 'h6',
-					title: 'Heading 6',
-					class: 'ck-heading_heading6'
-				}
+				model: 'paragraph',
+				title: 'Paragraph',
+				class: 'ck-heading_paragraph'
+			},
+			{
+				model: 'heading1',
+				view: 'h1',
+				title: 'Heading 1',
+				class: 'ck-heading_heading1'
+			},
+			{
+				model: 'heading2',
+				view: 'h2',
+				title: 'Heading 2',
+				class: 'ck-heading_heading2'
+			},
+			{
+				model: 'heading3',
+				view: 'h3',
+				title: 'Heading 3',
+				class: 'ck-heading_heading3'
+			},
+			{
+				model: 'heading4',
+				view: 'h4',
+				title: 'Heading 4',
+				class: 'ck-heading_heading4'
+			},
+			{
+				model: 'heading5',
+				view: 'h5',
+				title: 'Heading 5',
+				class: 'ck-heading_heading5'
+			},
+			{
+				model: 'heading6',
+				view: 'h6',
+				title: 'Heading 6',
+				class: 'ck-heading_heading6'
+			}
 			]
 		},
 		// https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration

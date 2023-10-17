@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,19 +43,10 @@
             [
                 "title" => "BÀI VIẾT",
                 "link" => "/pig_shop/blogs/list.php",
-                "link" => "/admin",
-            ],
-            [
-                "title" => "HÀNG MỚI VỀ",
-                "link" => "/admin",
             ],
             [
                 "title" => "QUẢN TRỊ",
                 "link" => "/pig_shop/admin/user/login_admin.php",
-            ],
-            [
-                "title" => "ĐĂNG NHẬP",
-                "link" => "/pig_shop/admin/user/login.php",
             ],
         ] ?>
         <ul class="nav nav-tabs container py-2 justify-between">

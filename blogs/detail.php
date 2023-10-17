@@ -3,6 +3,7 @@
 </head>
 <?php
 $id = $_REQUEST['id'];
+$blog_id = $_REQUEST['id'];
 $conn = mysqli_connect("localhost", "root", "") or die("Khong connect duoc voi may chu");
 mysqli_select_db($conn, "pig_shop") or die("Khong tim thay co so du lieu");
 $sql = "SELECT * from blogs where id = $id";
@@ -41,8 +42,11 @@ $content = str_replace('&', '&', $rows['content']);
             <?php echo $rows['description'] ?>
         </span>
         <div class="ck-blurred ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" >
-            <?php echo  str_replace( '&', '&', $rows['content'])?>
+            <?php echo  $rows['content']?>
         </div>
+    </div>
+    <div class="container" >
+        <?php include('../components/comments/index.php') ?>
     </div>
     <?php include("../footer.php") ?>
 </body>
