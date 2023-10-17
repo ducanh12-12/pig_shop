@@ -60,7 +60,7 @@
 			?>
 			<div class="mb-3 mt-3 has-validation">
 			  <label for="text">Tên đăng nhập:</label>
-			  <input type="text" class="form-control" placeholder="Điền tên đăng nhập" id="user" name="txt_user" required>
+			  <input type="text" class="form-control" placeholder="Điền tên đăng nhập" id="email" name="txt_email" required>
 				<div class="invalid-feedback">Vui lòng điền tên đăng nhập.</div>
        				
 			</div>
@@ -73,10 +73,6 @@
        					
 				</div> 
 			</div>
-			<div class="container" align="right">
-				Bạn không phải QTV? 
-				<a href="login.php" class="text-primary">Người dùng</a>
-			</div>
 			<div class="container mt-3" >
 				  <button type="submit" name="login_admin" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
 			</div> 
@@ -87,10 +83,9 @@
 	  (() => {
 	    'use strict'
 
-	    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	   
 	    const forms = document.querySelectorAll('.needs-validation')
 
-	    // Loop over them and prevent submission
 	    Array.from(forms).forEach(form => {
 	      form.addEventListener('submit', event => {
 	        if (!form.checkValidity()) {
